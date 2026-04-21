@@ -838,6 +838,22 @@ footer{background:var(--blue-dark);padding:48px 5vw 24px}
 
 <div class="toast" id="toast"></div>
 
+<!-- FLOATING MESSENGER BUTTONS -->
+<div style="position:fixed;bottom:24px;right:24px;display:flex;flex-direction:column;gap:10px;z-index:9998;">
+  <a href="https://t.me/bohdanidze" target="_blank"
+     style="width:52px;height:52px;border-radius:50%;background:#27A7E5;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(39,167,229,.45);transition:transform .2s;"
+     onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"
+     title="Написати в Telegram">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.48 14.316l-2.95-.924c-.64-.203-.654-.64.136-.953l11.57-4.461c.537-.194 1.006.131.326.27z"/></svg>
+  </a>
+  <a href="viber://chat?number=%2B380934905598&text=Привіт!%20Хочу%20дізнатись%20вартість%20переїзду"
+     style="width:52px;height:52px;border-radius:50%;background:#7360F2;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(115,96,242,.45);transition:transform .2s;"
+     onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"
+     title="Написати у Viber">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M11.985 0h.015C14.63 0 20.8 1.032 20.8 8.222c0 3.606-1.696 5.973-4.3 7.044l.002 4.09-3.243-3.01c-.424.05-.857.076-1.3.076C9.37 16.422 3.2 15.39 3.2 8.2 3.2 1.032 9.37 0 11.985 0zm.03 2.16C9.91 2.16 5.36 2.92 5.36 8.2c0 5.262 4.55 6.1 6.655 6.1.516 0 1.017-.042 1.494-.123l1.617 1.501-.001-2.32c2.315-.76 3.715-2.61 3.715-5.158 0-5.28-4.55-6.04-6.825-6.04zm-2.32 3.68c.2 0 .4.077.553.23l1.046 1.047a.783.783 0 010 1.107l-.43.43c.17.39.432.754.786 1.107.354.354.718.616 1.108.786l.43-.43a.783.783 0 011.107 0l1.046 1.047a.783.783 0 010 1.107l-.677.677c-.323.323-.78.47-1.24.4a8.367 8.367 0 01-5.384-5.384c-.07-.46.077-.917.4-1.24l.677-.677a.783.783 0 01.554-.23l-.976.023z"/></svg>
+  </a>
+</div>
+
 
 
 <script>
@@ -891,13 +907,33 @@ document.addEventListener('DOMContentLoaded', () => setLang('uk', document.query
 
 function handleSubmit(e) {
   e.preventDefault();
+  const form = e.target;
+  const inputs = form.querySelectorAll('input, select');
+  const name = inputs[0] ? inputs[0].value || 'Не вказано' : 'Не вказано';
+  const phone = inputs[1] ? inputs[1].value || 'Не вказано' : 'Не вказано';
+  const from = inputs[2] && inputs[2].tagName === 'INPUT' ? inputs[2].value || '-' : '-';
+  const to = inputs[3] && inputs[3].tagName === 'INPUT' ? inputs[3].value || '-' : '-';
+  const serviceEl = form.querySelector('select');
+  const service = serviceEl ? serviceEl.value || 'Не вказано' : 'Не вказано';
+
+  const BOT_TOKEN = '8638466970:AAHTFQTtXr_Iv6MS9S6f_SifcfjChDZ8tkg';
+  const CHAT_ID = '373352252';
+
+  const text = `🚚 *НОВА ЗАЯВКА — Atlant Moving Харків*\n\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}\n📍 Звідки: ${from}\n📍 Куди: ${to}\n🔧 Послуга: ${service}\n\n🌐 Джерело: atlantkharkov.com.ua`;
+
+  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({chat_id: CHAT_ID, text: text, parse_mode: 'Markdown'})
+  }).catch(() => {});
+
   const toast = document.getElementById('toast');
   const isUk = document.body.classList.contains('lang-uk');
   toast.textContent = isUk
     ? '✓ Заявку отримано! Передзвонимо протягом 15 хвилин.'
     : '✓ Заявка получена! Перезвоним в течение 15 минут.';
   toast.classList.add('show');
-  e.target.reset();
+  form.reset();
   setTimeout(() => toast.classList.remove('show'), 4500);
 }
 
