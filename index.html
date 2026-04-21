@@ -901,7 +901,7 @@ function handleSubmit(e) {
   setTimeout(() => toast.classList.remove('show'), 4500);
 }
 
-
+function toggleFaq(btn) {
   const item = btn.closest('.faq-item');
   const isOpen = item.classList.contains('open');
   document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
