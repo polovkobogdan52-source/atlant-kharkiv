@@ -107,7 +107,9 @@ section{padding:64px 5vw}
 .price-table tbody tr:last-child{border-bottom:none}
 .price-table tbody tr:hover{background:var(--gray)}
 .price-table td{padding:13px 20px;font-size:14px;font-weight:500;color:var(--text)}
-.price-table td:last-child{font-weight:800;color:var(--blue);white-space:nowrap}
+.price-table thead th:last-child,
+.price-table tbody td:last-child{width:160px;min-width:160px;text-align:right;white-space:nowrap}
+.price-table tbody td:first-child{width:100%}
 .price-table td .price-tag{display:inline-block;background:rgba(27,62,143,.07);color:var(--blue);padding:3px 10px;border-radius:5px;font-size:13px;font-weight:800}
 
 /* ── SERVICES ── */
@@ -325,15 +327,19 @@ footer{background:var(--blue-dark);padding:48px 5vw 24px}
       <input type="tel" class="field-input" placeholder="+380 93 490 55 98" required>
       <label class="field-label" data-lang="uk">Тип послуги</label>
       <label class="field-label" data-lang="ru">Тип услуги</label>
-      <select class="field-select">
-        <option data-lang="uk">Квартирний переїзд</option>
-        <option data-lang="ru">Квартирный переезд</option>
-        <option data-lang="uk">Офісний переїзд</option>
-        <option data-lang="ru">Офисный переезд</option>
-        <option data-lang="uk">Вантажники</option>
-        <option data-lang="ru">Грузчики</option>
-        <option data-lang="uk">Вантажне таксі</option>
-        <option data-lang="ru">Грузовое такси</option>
+      <select class="field-select" data-lang="uk">
+        <option>Квартирний переїзд</option>
+        <option>Офісний переїзд</option>
+        <option>Вантажники</option>
+        <option>Вантажне таксі</option>
+        <option>Великогабаритне перевезення</option>
+      </select>
+      <select class="field-select" data-lang="ru">
+        <option>Квартирный переезд</option>
+        <option>Офисный переезд</option>
+        <option>Грузчики</option>
+        <option>Грузовое такси</option>
+        <option>Крупногабаритная перевозка</option>
       </select>
       <button type="submit" class="btn-submit">
         <span data-lang="uk" class="i">Дізнатись вартість →</span>
@@ -396,35 +402,63 @@ footer{background:var(--blue-dark);padding:48px 5vw 24px}
   </div>
   <table class="price-table">
     <thead>
-      <tr>
-        <th data-lang="uk">ПОСЛУГА</th><th data-lang="ru">УСЛУГА</th>
-        <th data-lang="uk">ВАРТІСТЬ</th><th data-lang="ru">СТОИМОСТЬ</th>
+      <tr data-lang="uk">
+        <th>ПОСЛУГА</th>
+        <th>ВАРТІСТЬ</th>
+      </tr>
+      <tr data-lang="ru">
+        <th>УСЛУГА</th>
+        <th>СТОИМОСТЬ</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td data-lang="uk">Вантажник (стандартні послуги)</td><td data-lang="ru">Грузчик (стандартные услуги)</td>
-        <td><span class="price-tag" data-lang="uk">від 275 грн/год</span><span class="price-tag" data-lang="ru">от 275 грн/час</span></td>
+      <tr data-lang="uk">
+        <td>Вантажник (стандартні послуги) — завантаження, розвантаження, підйом на поверх</td>
+        <td><span class="price-tag">від 275 грн/год</span></td>
       </tr>
-      <tr>
-        <td data-lang="uk">Вантажник для квартирного переїзду</td><td data-lang="ru">Грузчик для квартирного переезда</td>
-        <td><span class="price-tag" data-lang="uk">від 275 грн/год</span><span class="price-tag" data-lang="ru">от 275 грн/час</span></td>
+      <tr data-lang="ru">
+        <td>Грузчик (стандартные услуги) — погрузка, разгрузка, подъём на этаж</td>
+        <td><span class="price-tag">от 275 грн/час</span></td>
       </tr>
-      <tr>
-        <td data-lang="uk">Вантажник (такелажні роботи)</td><td data-lang="ru">Грузчик (такелажные работы)</td>
-        <td><span class="price-tag" data-lang="uk">від 300 грн/год</span><span class="price-tag" data-lang="ru">от 300 грн/час</span></td>
+      <tr data-lang="uk">
+        <td>Вантажник для квартирного переїзду — пакування, перевезення, розстановка меблів</td>
+        <td><span class="price-tag">від 275 грн/год</span></td>
       </tr>
-      <tr>
-        <td data-lang="uk">Вантажник для роботи з меблями</td><td data-lang="ru">Грузчик для работы с мебелью</td>
-        <td><span class="price-tag" data-lang="uk">від 300 грн/год</span><span class="price-tag" data-lang="ru">от 300 грн/час</span></td>
+      <tr data-lang="ru">
+        <td>Грузчик для квартирного переезда — упаковка, перевозка, расстановка мебели</td>
+        <td><span class="price-tag">от 275 грн/час</span></td>
       </tr>
-      <tr>
-        <td data-lang="uk">Різноробочий (стандартні послуги)</td><td data-lang="ru">Разнорабочий (стандартные услуги)</td>
-        <td><span class="price-tag" data-lang="uk">від 200 грн/год</span><span class="price-tag" data-lang="ru">от 200 грн/час</span></td>
+      <tr data-lang="uk">
+        <td>Вантажник (такелажні роботи) — піаніно, сейфи, важке обладнання</td>
+        <td><span class="price-tag">від 300 грн/год</span></td>
       </tr>
-      <tr>
-        <td data-lang="uk">Вантажний автомобіль</td><td data-lang="ru">Грузовой автомобиль</td>
-        <td><span class="price-tag" data-lang="uk">500 грн/год</span><span class="price-tag" data-lang="ru">500 грн/час</span></td>
+      <tr data-lang="ru">
+        <td>Грузчик (такелажные работы) — пианино, сейфы, тяжёлое оборудование</td>
+        <td><span class="price-tag">от 300 грн/час</span></td>
+      </tr>
+      <tr data-lang="uk">
+        <td>Вантажник для роботи з меблями — розбирання, складання, перевезення</td>
+        <td><span class="price-tag">від 300 грн/год</span></td>
+      </tr>
+      <tr data-lang="ru">
+        <td>Грузчик для работы с мебелью — разборка, сборка, перевозка</td>
+        <td><span class="price-tag">от 300 грн/час</span></td>
+      </tr>
+      <tr data-lang="uk">
+        <td>Різноробочий — будівельні, підсобні, земляні, монтажні роботи</td>
+        <td><span class="price-tag">від 200 грн/год</span></td>
+      </tr>
+      <tr data-lang="ru">
+        <td>Разнорабочий — строительные, подсобные, земляные, монтажные работы</td>
+        <td><span class="price-tag">от 200 грн/час</span></td>
+      </tr>
+      <tr data-lang="uk">
+        <td>Вантажний автомобіль — газель, мікроавтобус, вантажівка до 5 тонн</td>
+        <td><span class="price-tag">від 500 грн/год</span></td>
+      </tr>
+      <tr data-lang="ru">
+        <td>Грузовой автомобиль — газель, микроавтобус, грузовик до 5 тонн</td>
+        <td><span class="price-tag">от 500 грн/час</span></td>
       </tr>
     </tbody>
   </table>
@@ -785,12 +819,19 @@ footer{background:var(--blue-dark);padding:48px 5vw 24px}
       </div>
       <label class="field-label" data-lang="uk">Тип послуги</label>
       <label class="field-label" data-lang="ru">Тип услуги</label>
-      <select class="field-select">
-        <option data-lang="uk">Квартирний переїзд</option><option data-lang="ru">Квартирный переезд</option>
-        <option data-lang="uk">Офісний переїзд</option><option data-lang="ru">Офисный переезд</option>
-        <option data-lang="uk">Вантажники</option><option data-lang="ru">Грузчики</option>
-        <option data-lang="uk">Вантажне таксі</option><option data-lang="ru">Грузовое такси</option>
-        <option data-lang="uk">Великогабаритне перевезення</option><option data-lang="ru">Крупногабаритная перевозка</option>
+      <select class="field-select" data-lang="uk">
+        <option>Квартирний переїзд</option>
+        <option>Офісний переїзд</option>
+        <option>Вантажники</option>
+        <option>Вантажне таксі</option>
+        <option>Великогабаритне перевезення</option>
+      </select>
+      <select class="field-select" data-lang="ru">
+        <option>Квартирный переезд</option>
+        <option>Офисный переезд</option>
+        <option>Грузчики</option>
+        <option>Грузовое такси</option>
+        <option>Крупногабаритная перевозка</option>
       </select>
       <button type="submit" class="btn-submit" style="margin-top:6px;">
         <span data-lang="uk" class="i">Відправити заявку →</span>
