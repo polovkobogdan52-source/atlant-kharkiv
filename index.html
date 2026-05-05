@@ -993,15 +993,17 @@ function handleSubmit(e) {
   const service = serviceEl ? serviceEl.value || 'Не вказано' : 'Не вказано';
 
   const BOT_TOKEN = '8638466970:AAHTFQTtXr_Iv6MS9S6f_SifcfjChDZ8tkg';
-  const CHAT_ID = '373352252';
+  const CHAT_IDS = ['373352252', '943531155'];
 
   const text = `🚚 *НОВА ЗАЯВКА — Atlant Moving Харків*\n\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}\n📍 Звідки: ${from}\n📍 Куди: ${to}\n🔧 Послуга: ${service}\n\n🌐 Джерело: atlantkharkov.com.ua`;
 
-  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({chat_id: CHAT_ID, text: text, parse_mode: 'Markdown'})
-  }).catch(() => {});
+  CHAT_IDS.forEach(chat_id => {
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({chat_id: chat_id, text: text, parse_mode: 'Markdown'})
+    }).catch(() => {});
+  });
 
   const toast = document.getElementById('toast');
   const isUk = document.body.classList.contains('lang-uk');
